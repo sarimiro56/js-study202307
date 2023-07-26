@@ -4,6 +4,10 @@
 
 let qNum = 1; // 문제 넘버링
 
+// 정답, 오답 횟수
+let correctCount = 0;
+let wrongCount = 0;
+
 while (true) {
     let firstNumber = Math.floor(Math.random() * 20) + 1;
     let secondNumber = Math.floor(Math.random() * 20) + 1;
@@ -18,7 +22,11 @@ while (true) {
     // 정답 확인
     if (userAnswer === firstNumber + secondNumber) {
         alert('정답입니다!');
+        correctCount++;
     } else {
         alert('틀렸습니다!');
+        wrongCount++;
     }
-}
+} // end while
+
+alert(`정답 횟수: ${correctCount}회, 틀린 횟수: ${wrongCount}회`);
