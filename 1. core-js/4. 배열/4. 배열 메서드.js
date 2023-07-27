@@ -80,5 +80,6 @@ console.log(foodList);
 
 // 전체 삭제
 // foodList.splice(0);
+
 foodList = [];
 console.log(foodList);
