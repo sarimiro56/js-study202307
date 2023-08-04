@@ -44,6 +44,49 @@ class Product {
   );
   console.log(p2);
   
+// 하나의 상품 객체에 대한 설계도
+class Product {
+    // 객체를 만들 때 초기값을 세팅하는 용도
+    constructor(title, image, price, desc) {
+      this.title = title;
+      this.imageUrl = image;
+      this.price = price;
+      this.description = desc;
+    }
+  }
+  // 객체 생성
+  const p1 = new Product(
+    "냠냠이",
+    "https://blog.kakaocdn.net/dn/cSGF4R/btq5h0PUbMx/9RgR2KxK5oEeT9ku9O2xW1/img.png",
+    2000,
+    "냠냠박사님 맛있게 밥을 먹어주세요~"
+  );
+  console.log(p1);
+  const p2 = new Product(
+    "쩝쩝이",
+    "https://www.animaxtv.co.kr/sites/animaxtv.co.kr/files/ct_character_f_primary_image/nyamnyam.jpg",
+    7000,
+    "쩝쩝꿀꿀박사님 점심을 추천해주세요~"
+  );
+  console.log(p2);
+
+//   화면 가장 상단부에 들어갈 장바구니 총액 정보 태그 생성 클래스
+class ShoppingCart {
+    constructor() {
+        // 장바구니에 담은 Product들을 저장
+        this.cartItems = [];
+    }
+    render () {
+        const $cart = document.createElement('section');
+        $cart.classList.add('cart');
+        $cart.innerHTML = `
+            <h2>총액 0원</h2>
+            <button>주문하기</button>
+        `;
+        return $cart;
+    }
+}
+  
   // 한개의 LI태그를 생성하는 컴포넌트 클래스 설계
   class ProductItem {
     constructor(product) {
@@ -95,7 +138,7 @@ class Product {
   
     render() {
       // console.log('render!!', this);
-      const $app = document.getElementById("app");
+      // const $app = document.getElementById("app");
       const $prodList = document.createElement("ul");
       $prodList.classList.add("product-list");
       this.products.forEach((prod) => {
@@ -104,10 +147,26 @@ class Product {
         // console.log(productItem);
         $prodList.appendChild(productItem.render());
       });
-      $app.appendChild($prodList);
-    },
-  };
+      return $prodList;
+    }
+  }
+
+  // ShoppingCart와 ProductList를 합쳐서 렌더링 처리하는 클래스
+
+  class Shop {
+    constructor() {
+
+    }
+    render() {
+        const $app = document.getElementById('app');
+        $app.appendChild(new ShoppingCart().render());
+        $app.appendChild(new ProductList().render());
+    }
+  }
   
   // 렌더링 명령
+  const productList = new ProductList();
   productList.render();
+
+
   
