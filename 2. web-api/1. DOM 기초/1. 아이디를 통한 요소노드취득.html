@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ui>
+        <li id="apple" style="background: red;">사과</li>
+        <li id="banana">바나나</li>
+        <li id="greape">포도</li>
+        <li id="peach">복숭아</li>
+    </ui>
+    <script>
+        // console.log(document.body.childern);
+        const number = 20;
+        const $banana = document.getElementById('banana');
+        console.log($banana);
+        
+        $banana.textContent = '뻐네이너';
+        $banana.attributes.id.value = 'bnn'
+    </script>
+</body>
+</html>
