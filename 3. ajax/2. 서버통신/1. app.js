@@ -21,7 +21,7 @@ const fetchGetPosts = () => {
   - DELETE: 리소스를 삭제 (게시물 지우기, 회원탈퇴, 좋아요 취소)
   */
   // 요청정보 초기화
-  xhr.open("GET", "http://localhost:8383/posts");
+  xhr.open("GET", "http://localhost:5000/posts");
 
   // 요청보내기
   xhr.send();
