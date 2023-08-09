@@ -6,19 +6,9 @@
       "id": 4
     },
     {
-      "title": "호호호",
-      "body": "히히히",
-      "id": 5
-    },
-    {
-      "title": "랄랄라",
-      "body": "룰룰루",
-      "id": 6
-    },
-    {
-      "title": "졸립다",
-      "body": "자고싶다",
-      "id": 7
+      "title": "등록등록",
+      "body": "키키키키",
+      "id": 8
     }
   ],
   "users": [
@@ -31,5 +21,22 @@
       "userName": "뽀로로"
     }
   ],
-  "followers": []
+  "followers": [],
+  "todos": [
+    {
+      "id": 1,
+      "text": "밥 먹기",
+      "done": true
+    },
+    {
+      "id": 2,
+      "text": "이벤트 돌리기",
+      "done": true
+    },
+    {
+      "id": 3,
+      "text": "잠자기",
+      "done": false
+    }
+  ]
 }
