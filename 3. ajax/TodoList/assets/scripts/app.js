@@ -35,6 +35,38 @@ const renderTodos = (todoList) => {
   });
 };
 
+// ============= 이벤트 관련 함수 ============ //
+const addTodoHandler = e => {
+  // 1. 클릭이벤트가 잘 일어나나?
+  // console.log('클릭!');
+
+  // 2. 클릭하면 일단 왼쪽에 인풋의 텍스트를 읽어야 함.
+  // 2-1. 인풋부터 찾자
+  const $textInput = document.getElementById('todo-text');
+  // 2-2. 인풋 안에 텍스트를 꺼내자
+  const inputText = $textInput.value;
+  
+  // 3. 그럼 서버에 이 데이터를 보내서 저장해야 하는데?
+  // -> fetch가 필요하겠다. 저장이니까 POST 해야겠다.
+  // -> payload를 API 스펙에 맞게 만들어 보내야 함
+  const payload = {
+    text: inputText,
+    done: false
+  };
+  fetchTodos(URL, 'POST', payload)
+    .then(res => {
+      if (res.status === 200 || res.status === 201) {
+        console.log('등록 성공!');
+      } else {
+        console.log('등록 실패!');
+      }
+    });
+};
+
+// step2. 할 일 등록 기능
+const $addBtn = document.getElementById('add');
+$addBtn.addEventListener('click', addTodoHandler);
+
 // =========== 앱 실행 =========== //
 const init = () => {
   fetchTodos(URL)

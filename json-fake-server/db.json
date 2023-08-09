@@ -37,6 +37,11 @@
       "id": 3,
       "text": "잠자기",
       "done": false
+    },
+    {
+      "text": "감자 데우기",
+      "done": false,
+      "id": 4
     }
   ]
 }
