@@ -13,8 +13,22 @@ const fetchTodos = (url, method='GET', payload=null) => {
   return fetch(url, requestInit);
 };
 
+const renderRestTodo = todoList => {
+  // 총 할 일 개수
+  const totalTodos = todoList.length;
+  // 완료된 할 일의 개수
+  const restTodos = todoList.filter(todo => todo.done).length;
+  // 렌더링 처리
+  const $rest = document.querySelector('.rest-todo');
+  if (totalTodos > 0) {
+    $rest.textContent = `( ${restTodos} / ${totalTodos} )`;
+  }
+};
+
 // 화면에 todos를 렌더링하는 함수
 const renderTodos = (todoList) => {
+  // 할 일 완료 개수 렌더링
+  renderRestTodo(todoList);
   // li태그의 템플릿을 가져옴
   const $liTemplate = document.getElementById('single-todo');
 
@@ -46,6 +60,13 @@ const addTodoHandler = e => {
   // 2-2. 인풋 안에 텍스트를 꺼내자
   const inputText = $textInput.value;
 
+  // 입력 검증
+  if (inputText.trim() === '') {
+    $textInput.style.background = 'orangered';
+    $textInput.setAttribute('placeholder', '공백은 허용되지 않습니다.');
+    return;
+  }
+
   // 3. 그럼 서버에 이 데이터를 보내서 저장해야 하는데?
   // -> fetch가 필요하겠다. 저장이니까 POST해야겠다.
   // -> payload를 API 스펙에 맞게 만들어 보내야 함
@@ -66,6 +87,18 @@ const addTodoHandler = e => {
 // step2. 할 일 등록 기능 
 const $addBtn = document.getElementById('add');
 $addBtn.addEventListener('click', addTodoHandler);
+
+// 엔터이벤트
+const $textInput = document.getElementById('todo-text');
+$textInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    $addBtn.click();
+  }
+});
+// form의 submit이벤트를 중단시켜야 함
+document.querySelector('.todo-insert').addEventListener('submit', e => {
+  e.preventDefault();
+});
 
 // step3. 할 일 삭제 기능
 const deleteTodoHandler = e => {
@@ -108,16 +141,18 @@ const checkTodoHandler = e => {
 
 $todoList.addEventListener('change', checkTodoHandler);
 
+
 // step5. 할일 수정 처리
+
 // 수정 모드 진입하는 함수
 const enterModifyMode = ($undo) => {
   // 클래스 이름을 변경하여 아이콘을 바꾸자
   // -> 클릭한 span태그 노드를 가져와야 함.
   $undo.classList.replace('lnr-undo', 'lnr-checkmark-circle');
 
-  // $undo 근처에 있는 span.text를 가져와야 함.
+  // $undo근처에 있는 span.text를 가져와야 함.
   const $textSpan = $undo.closest('.todo-list-item').querySelector('.text');
-
+  
   // 교체할 input을 생성
   const $modInput = document.createElement('input');
   $modInput.classList.add('modify-input');
@@ -133,7 +168,7 @@ const modifyTodo = ($checkMark) => {
   const $li = $checkMark.closest('.todo-list-item');
   const id = $li.dataset.id;
   const newText = $li.querySelector('.modify-input').value;
-
+  
   fetchTodos(`${URL}/${id}`, 'PATCH', {
     text: newText
   });
